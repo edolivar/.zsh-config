@@ -36,4 +36,4 @@ fi
 #   echo "Hello from my custom function!"
 # }
 
-
+alias nv='nvim .'
