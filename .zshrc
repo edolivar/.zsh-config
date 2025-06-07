@@ -1,5 +1,13 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export PATH="/opt/homebrew/bin:$PATH"
 
 # Set name of the theme to load --- if set to "random", it will load a random theme each time oh-my-zsh is loaded.
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
@@ -21,15 +29,6 @@ alias l='ls -CF'
 alias gs='git status'
 alias gc='git commit -m'
 
-# Example Environment Variables:
-# export EDITOR="nano"
-
-# Powerlevel10k configuration (if using it)
-# The actual p10k config is usually in ~/.p10k.zsh
-# You'll link that separately or source it if it's in this folder.
-if [[ -f ~/.p10k.zsh ]]; then
-  source ~/.p10k.zsh
-fi
 
 # Example Custom Function:
 # myfunction() {
@@ -37,3 +36,10 @@ fi
 # }
 
 alias nv='nvim .'
+alias lsa='ls -a'
+alias gcm='git commit -m'
+alias gs='git status'
+alias gp='git push'
+alias gsa='git add .'
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
