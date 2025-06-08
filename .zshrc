@@ -23,23 +23,49 @@ source $ZSH/oh-my-zsh.sh
 # --- Your Customizations Below This Line ---
 
 # Example Aliases:
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-alias gs='git status'
+alias vi='nvim'
+alias gs='git stat'
+alias ls='lsd -F'
+alias la='lsd -AF'
+alias ll='lsd -lAF'
+alias lg='lsd -F --group-dirs=first"us'
 alias gc='git commit -m'
-
-
-# Example Custom Function:
-# myfunction() {
-#   echo "Hello from my custom function!"
-# }
-
+alias inv='nvim $(fzf -m --preview="bat --color=always {}")'
+alias tree="lsd -AF --tree --ignore-glob='**/{node_modules,.next,.git}'"
+alias cat="bat --color=always {}"
 alias nv='nvim .'
-alias lsa='ls -a'
 alias gcm='git commit -m'
 alias gs='git status'
 alias gp='git push'
 alias gsa='git add .'
+# Example Environment Variables:
+export EDITOR="nvim"
+
+# Powerlevel10k configuration (if using it)
+# The actual p10k config is usually in ~/.p10k.zsh
+# You'll link that separately or source it if it's in this folder.
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+source <(fzf --zsh)
+
+# History settings
+HISTFILE=~/.zsh_history
+HISTSIZE=5000
+SAVEHIST=5000
+setopt appendhistory
+setopt histignoredups
+setopt incappendhistory
+
+# fzf command history search with only 5 visible lines at a time
+fh() {
+  BUFFER=$(history -n 1 | fzf --height=6 --layout=reverse --info=inline --tac)
+  CURSOR=$#BUFFER
+  zle redisplay
+}
+zle -N fh
+bindkey '^R' fh
+
+#CD replacement
+eval "$(zoxide init zsh)"
