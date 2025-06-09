@@ -22,22 +22,29 @@ source $ZSH/oh-my-zsh.sh
 
 # --- Your Customizations Below This Line ---
 
-# Example Aliases:
+# Termial/Editor AlIAS 
 alias vi='nvim'
-alias gs='git stat'
+alias nv='nvim .'
+alias inv='nvim $(fzf -m --preview="bat --color=always {}")'
+alias cat="bat --color=always {}"
+alias cd='z'
+alias c='clear'
+#LIST CMD ALIAS
 alias ls='lsd -F'
 alias la='lsd -AF'
 alias ll='lsd -lAF'
-alias lg='lsd -F --group-dirs=first"us'
-alias gc='git commit -m'
-alias inv='nvim $(fzf -m --preview="bat --color=always {}")'
+alias lg='lsd -F --group-dirs=first'
 alias tree="lsd -AF --tree --ignore-glob='**/{node_modules,.next,.git}'"
-alias cat="bat --color=always {}"
-alias nv='nvim .'
+#GIT ALIAS
+alias gs='git status'
 alias gcm='git commit -m'
 alias gs='git status'
 alias gp='git push'
 alias gsa='git add .'
+#PNPM ALIAS
+alias pdev="pnpm dev"
+alias pinst='pnpm i'
+
 # Example Environment Variables:
 export EDITOR="nvim"
 
