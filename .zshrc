@@ -7,7 +7,6 @@ fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-export PATH="/opt/homebrew/bin:$PATH"
 
 # Set name of the theme to load --- if set to "random", it will load a random theme each time oh-my-zsh is loaded.
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
@@ -28,6 +27,7 @@ alias nv='nvim .'
 alias inv='nvim $(fzf -m --preview="bat --color=always {}")'
 alias cat="bat --color=always {}"
 alias cd='z'
+alias cdi='zi'
 alias c='clear'
 #LIST CMD ALIAS
 alias ls='lsd -F'
@@ -42,10 +42,29 @@ alias gs='git status'
 alias gp='git push'
 alias gsa='git add .'
 #PNPM ALIAS
-alias pdev="pnpm dev"
+# alias pdev="pnpm dev"
 alias pinst='pnpm i'
+alias pstudio='pnpm db:studio'
+alias padd='pnpm add'
+alias prun='pnpm run dev'
 
-# Example Environment Variables:
+pdev() {
+    local opened=false
+    pnpm run dev 2>&1 | while IFS= read -r line; do
+        echo "$line"
+        if [[ "$opened" == false && "$line" == *"Local:"* && "$line" == *"localhost"* ]]; then
+            # Extract URL using parameter expansion
+            local url=$(echo "$line" | grep -o 'http://localhost:[0-9]*')
+            if [[ -n "$url" ]]; then
+                echo "Opening $url"
+                open "$url"
+                opened=true
+            fi
+        fi
+    done
+}
+
+#EDITOR
 export EDITOR="nvim"
 
 # Powerlevel10k configuration (if using it)
@@ -76,3 +95,6 @@ bindkey '^R' fh
 
 #CD replacement
 eval "$(zoxide init zsh)"
+#Path
+export PATH="$PATH:$HOME/.pnpm-global/bin"
+export PATH="/opt/homebrew/bin:$PATH"
