@@ -7,6 +7,8 @@ fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export PATH="/opt/homebrew/bin:$PATH"
+export PATH="$PATH:$HOME/.pnpm-global/bin"
 
 # Set name of the theme to load --- if set to "random", it will load a random theme each time oh-my-zsh is loaded.
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
@@ -24,11 +26,12 @@ source $ZSH/oh-my-zsh.sh
 # Termial/Editor AlIAS 
 alias vi='nvim'
 alias nv='nvim .'
-alias inv='nvim $(fzf -m --preview="bat --color=always {}")'
+alias ivs='code $(fzf -m --preview="bat --color=always {}")'
 alias cat="bat --color=always {}"
 alias cd='z'
 alias cdi='zi'
 alias c='clear'
+alias vs='code .'
 #LIST CMD ALIAS
 alias ls='lsd -F'
 alias la='lsd -AF'
@@ -40,7 +43,10 @@ alias gs='git status'
 alias gcm='git commit -m'
 alias gs='git status'
 alias gp='git push'
+alias gpp='git pull'
 alias gsa='git add .'
+#FZF
+alias view='fzf'
 #PNPM ALIAS
 # alias pdev="pnpm dev"
 alias pinst='pnpm i'
@@ -65,7 +71,7 @@ pdev() {
 }
 
 #EDITOR
-export EDITOR="nvim"
+export EDITOR="code --wait"
 
 # Powerlevel10k configuration (if using it)
 # The actual p10k config is usually in ~/.p10k.zsh
@@ -93,8 +99,15 @@ fh() {
 zle -N fh
 bindkey '^R' fh
 
-#CD replacement
+#FZF THEME
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+  --color=fg:#d0d0d0,fg+:#d0d0d0,bg:#000000,bg+:#262626
+  --color=hl:#5f87af,hl+:#5fd7ff,info:#afaf87,marker:#87ff00
+  --color=prompt:#d7005f,spinner:#af5fff,pointer:#af5fff,header:#87afaf
+  --color=border:#262626,label:#aeaeae,query:#d9d9d9
+  --border="rounded" --border-label="" --preview-window="border-rounded" --prompt=">"
+  --marker=">" --pointer="*" --separator="_" --scrollbar="│"
+  --layout="reverse" --info="right"
+  --preview="bat --color=always --line-range=:500 {}"' # <--- This is the key line
 eval "$(zoxide init zsh)"
-#Path
-export PATH="$PATH:$HOME/.pnpm-global/bin"
-export PATH="/opt/homebrew/bin:$PATH"
+
